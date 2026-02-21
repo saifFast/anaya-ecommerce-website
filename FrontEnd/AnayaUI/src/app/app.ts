@@ -19,6 +19,8 @@ export class App implements OnInit {
   error = signal<string | null>(null);
   selectedCategory = signal<number | null>(null);
   searchTerm = signal('');
+  cart = signal<Product[]>([]);
+  wishlist = signal<number[]>([]);
 
   constructor(
     private productService: ProductService,
@@ -126,5 +128,57 @@ export class App implements OnInit {
     if (!categoryId) return 'Uncategorized';
     const category = this.categories().find(c => c.id === categoryId);
     return category ? category.name : 'Unknown';
+  }
+
+  /**
+   * Add product to cart
+   */
+  addToCart(product: Product): void {
+    const currentCart = this.cart();
+    const existingItem = currentCart.find(item => item.id === product.id);
+    
+    if (existingItem) {
+      existingItem.quantity = (existingItem.quantity || 1) + 1;
+    } else {
+      product.quantity = 1;
+      currentCart.push(product);
+    }
+    
+    this.cart.set([...currentCart]);
+    this.showNotification(`${product.name} added to cart!`);
+  }
+
+  /**
+   * Toggle product in wishlist
+   */
+  toggleWishlist(product: Product): void {
+    const wishlistItems = this.wishlist();
+    const index = wishlistItems.indexOf(product.id);
+    
+    if (index > -1) {
+      wishlistItems.splice(index, 1);
+      this.showNotification(`${product.name} removed from wishlist`);
+    } else {
+      wishlistItems.push(product.id);
+      this.showNotification(`${product.name} added to wishlist!`);
+    }
+    
+    this.wishlist.set([...wishlistItems]);
+  }
+
+  /**
+   * Clear all filters
+   */
+  clearAllFilters(): void {
+    this.selectedCategory.set(null);
+    this.searchTerm.set('');
+    this.loadProducts();
+  }
+
+  /**
+   * Show notification message
+   */
+  private showNotification(message: string): void {
+    console.log('✨ ' + message);
   }
 }

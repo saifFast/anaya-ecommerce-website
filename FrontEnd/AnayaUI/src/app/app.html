@@ -230,6 +230,13 @@
         >
           {{ category.name }}
         </button>
+        <button 
+          *ngIf="selectedCategory() !== null || searchTerm() !== ''"
+          class="btn-clear-filters"
+          (click)="clearAllFilters()"
+        >
+          ✕ Clear Filters
+        </button>
       </div>
     </div>
   </div>
@@ -248,7 +255,9 @@
   <ng-container *ngIf="!loading()">
     <!-- Stats -->
     <div *ngIf="products().length > 0" class="stats">
-      <p>Showing {{ products().length }} product(s)</p>
+      <p>📦 Showing {{ products().length }} product(s)</p>
+      <p>🛒 Cart: {{ cart().length }} item(s)</p>
+      <p>♡ Wishlist: {{ wishlist().length }} item(s)</p>
     </div>
 
     <!-- Products Grid -->
@@ -266,6 +275,14 @@
           <div>
             <span class="price-label">Price:</span>
             <p class="product-price">${{ product.price }}</p>
+          </div>
+          <div class="product-actions">
+            <button class="btn-add-cart" (click)="addToCart(product)">
+              🛒 Add to Cart
+            </button>
+            <button class="btn-wishlist" (click)="toggleWishlist(product)" title="Add to Wishlist">
+              ♡
+            </button>
           </div>
         </div>
       </div>

@@ -5,4 +5,5 @@ export interface Product {
   categoryId: number | null;
   price: number;
   imageUrl: string;
+  quantity?: number;
 }
