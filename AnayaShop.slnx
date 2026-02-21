@@ -1,3 +1,7 @@
 <Solution>
-  <Project Path="AnayaShop.csproj" />
+  <Project Path="BackEnd/AnayaCore/AnayaCore.csproj" Id="e0a290c3-bb1a-447e-98a9-e013e829b438" />
+  <Project Path="FrontEnd/AnayaUI/AnayaUI.esproj">
+    <Build />
+    <Deploy />
+  </Project>
 </Solution>

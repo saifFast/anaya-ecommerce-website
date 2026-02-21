@@ -1,0 +1,6 @@
+@AnayaCore_HostAddress = http://localhost:5209
+
+GET {{AnayaCore_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
