@@ -10,9 +10,13 @@ namespace AnayaCore.Controllers
         // In-memory database (replace with actual database context later)
         private static List<Category> categories = new List<Category>
         {
-            new Category { Id = 1, Name = "Electronics", Description = "Electronic devices and gadgets", CreatedOn = DateTime.UtcNow.AddDays(-30) },
-            new Category { Id = 2, Name = "Accessories", Description = "Computer and device accessories", CreatedOn = DateTime.UtcNow.AddDays(-20) },
-            new Category { Id = 3, Name = "Software", Description = "Software and applications", CreatedOn = DateTime.UtcNow.AddDays(-10) }
+            new Category { Id = 1, Name = "Electronics", Description = "Laptops, tablets, smart TVs and other electronic devices", CreatedOn = DateTime.UtcNow.AddDays(-45) },
+            new Category { Id = 2, Name = "Accessories", Description = "Mice, keyboards, hubs, and computer peripherals", CreatedOn = DateTime.UtcNow.AddDays(-40) },
+            new Category { Id = 3, Name = "Audio", Description = "Headphones, earbuds, speakers and audio equipment", CreatedOn = DateTime.UtcNow.AddDays(-35) },
+            new Category { Id = 4, Name = "Monitors & Displays", Description = "Computer monitors and display panels", CreatedOn = DateTime.UtcNow.AddDays(-30) },
+            new Category { Id = 5, Name = "Furniture & Workspace", Description = "Desks, chairs, and ergonomic office furniture", CreatedOn = DateTime.UtcNow.AddDays(-25) },
+            new Category { Id = 6, Name = "Lighting & Ambiance", Description = "Smart lights, LED strips, and ambient lighting solutions", CreatedOn = DateTime.UtcNow.AddDays(-20) },
+            new Category { Id = 7, Name = "Cables & Connectivity", Description = "Cables, adapters, and network connectivity products", CreatedOn = DateTime.UtcNow.AddDays(-15) }
         };
 
         /// <summary>
