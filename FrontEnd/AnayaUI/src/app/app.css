@@ -50,7 +50,7 @@ html, body {
    ============================================= */
 
 .container {
-  max-width: 1400px;
+  max-width: 1600px;
   margin: 0 auto;
   padding: 3rem 1.5rem;
   min-height: 100vh;
@@ -430,22 +430,27 @@ input[type="text"]:hover {
   border-radius: 15px;
   box-shadow: 0 10px 30px rgba(79, 172, 254, 0.3);
   color: white;
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   align-items: center;
-  flex-wrap: wrap;
-  gap: 1rem;
+  gap: 2rem;
 }
 
 .stats p {
   margin: 0;
   color: rgba(255, 255, 255, 0.95);
   font-weight: 600;
-  font-size: 1.1rem;
+  font-size: 1rem;
+  text-align: center;
 }
 
 /* =============================================
-   Products Grid20px, 1fr));
+   Products Grid
+   ============================================= */
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   gap: 2.5rem;
   margin: 3rem 0;
   animation: fadeIn 0.6s ease-out;
@@ -462,17 +467,19 @@ input[type="text"]:hover {
   }
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1400px) {
   .products-grid {
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
   }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 1024px) {
   .products-grid {
-    grid-template-columns: 1fr;
-    gap: 2
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+}
 
 @media (max-width: 640px) {
   .products-grid {
@@ -527,7 +534,7 @@ input[type="text"]:hover {
 
 .product-image {
   width: 100%;
-  height: 250px;
+  height: 280px;
   background: linear-gradient(135deg, #f0f4ff 0%, #f5ebff 100%);
   overflow: hidden;
   position: relative;
@@ -553,7 +560,7 @@ input[type="text"]:hover {
    ============================================= */
 
 .product-body {
-  padding: 1.5rem;
+  padding: 1.75rem 1.5rem;
   flex-grow: 1;
   display: flex;
   flex-direction: column;
@@ -574,7 +581,7 @@ input[type="text"]:hover {
 }
 
 .product-price {
-  font-size: 2rem;
+  font-size: 1.75rem;
   font-weight: 800;
   background: var(--secondary-gradient);
   -webkit-background-clip: text;
@@ -691,7 +698,7 @@ input[type="text"]:hover {
 }
 
 .product-name {
-  font-size: 1.3rem;
+  font-size: 1.15rem;
   font-weight: 700;
   color: var(--text-dark);
   margin: 0 0 1rem 0;
