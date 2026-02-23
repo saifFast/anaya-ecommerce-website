@@ -1,8 +1,10 @@
 import { Component, OnInit, signal } from '@angular/core';
-import { ProductService } from './services/product.service';
-import { CategoryService } from './services/category.service';
-import { Product } from './models/product';
-import { Category } from './models/category';
+import { ProductService } from './features/products/services/product.service';
+import { CategoryService } from './features/category/services/category.service';
+import { CartService } from './features/cart/services/cart.service';
+import { WishlistService } from './features/wishlist/services/wishlist.service';
+import { NotificationService } from './core/services/notification.service';
+import { Product, Category } from './shared/models';
 
 @Component({
   selector: 'app-root',
@@ -19,12 +21,13 @@ export class App implements OnInit {
   error = signal<string | null>(null);
   selectedCategory = signal<number | null>(null);
   searchTerm = signal('');
-  cart = signal<Product[]>([]);
-  wishlist = signal<number[]>([]);
 
   constructor(
     private productService: ProductService,
-    private categoryService: CategoryService
+    private categoryService: CategoryService,
+    public cartService: CartService,
+    public wishlistService: WishlistService,
+    private notificationService: NotificationService
   ) {}
 
   ngOnInit(): void {
@@ -134,36 +137,20 @@ export class App implements OnInit {
    * Add product to cart
    */
   addToCart(product: Product): void {
-    const currentCart = this.cart();
-    const existingItem = currentCart.find(item => item.id === product.id);
-    
-    if (existingItem) {
-      existingItem.quantity = (existingItem.quantity || 1) + 1;
-    } else {
-      product.quantity = 1;
-      currentCart.push(product);
-    }
-    
-    this.cart.set([...currentCart]);
-    this.showNotification(`${product.name} added to cart!`);
+    this.cartService.addToCart(product);
+    this.notificationService.success(`${product.name} added to cart!`);
   }
 
   /**
    * Toggle product in wishlist
    */
   toggleWishlist(product: Product): void {
-    const wishlistItems = this.wishlist();
-    const index = wishlistItems.indexOf(product.id);
-    
-    if (index > -1) {
-      wishlistItems.splice(index, 1);
-      this.showNotification(`${product.name} removed from wishlist`);
-    } else {
-      wishlistItems.push(product.id);
-      this.showNotification(`${product.name} added to wishlist!`);
-    }
-    
-    this.wishlist.set([...wishlistItems]);
+    this.wishlistService.toggleWishlist(product.id);
+    const isNowInWishlist = this.wishlistService.isInWishlist(product.id);
+    const message = isNowInWishlist
+      ? `${product.name} added to wishlist!`
+      : `${product.name} removed from wishlist`;
+    this.notificationService.success(message);
   }
 
   /**
@@ -173,12 +160,5 @@ export class App implements OnInit {
     this.selectedCategory.set(null);
     this.searchTerm.set('');
     this.loadProducts();
-  }
-
-  /**
-   * Show notification message
-   */
-  private showNotification(message: string): void {
-    console.log('✨ ' + message);
   }
 }

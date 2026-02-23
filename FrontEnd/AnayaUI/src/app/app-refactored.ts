@@ -24,10 +24,12 @@ export class App implements OnInit {
   categories = signal<Category[]>([]);
   selectedCategory = signal<number | null>(null);
   searchTerm = signal('');
-
-  // Computed-like signals via constructor
-  loading = signal(false);
   error = signal<string | null>(null);
+
+  // Loading state from LoadingService
+  get loading() {
+    return this.loadingService.isLoading;
+  }
 
   constructor(
     private productService: ProductService,
@@ -109,7 +111,7 @@ export class App implements OnInit {
   /**
    * Handle category filter change
    */
-  onCategoryChange(categoryId: number | null): void {
+  filterByCategory(categoryId: number | null): void {
     this.selectedCategory.set(categoryId);
     this.searchTerm.set('');
     this.loadProducts();
@@ -127,18 +129,18 @@ export class App implements OnInit {
   }
 
   /**
-   * Handle search clear
+   * Clear all filters
    */
-  onClearSearch(): void {
-    this.searchTerm.set('');
+  clearAllFilters(): void {
     this.selectedCategory.set(null);
+    this.searchTerm.set('');
     this.loadProducts();
   }
 
   /**
    * Handle add to cart
    */
-  onAddToCart(product: Product): void {
+  addToCart(product: Product): void {
     this.cartService.addToCart(product);
     this.notificationService.success(`${product.name} added to cart!`);
   }
@@ -146,7 +148,7 @@ export class App implements OnInit {
   /**
    * Handle toggle wishlist
    */
-  onToggleWishlist(product: Product): void {
+  toggleWishlist(product: Product): void {
     this.wishlistService.toggleWishlist(product.id);
     const isNowInWishlist = this.wishlistService.isInWishlist(product.id);
     const message = isNowInWishlist
