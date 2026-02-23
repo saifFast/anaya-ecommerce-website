@@ -1,4 +1,4 @@
-﻿namespace AnayaCore.Models
+﻿namespace AnayaCore.Models.Main
 {
     public class Category
     {

@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using AnayaCore.Models;
+using AnayaCore.Models.Main;
 
 namespace AnayaCore.Controllers
 {

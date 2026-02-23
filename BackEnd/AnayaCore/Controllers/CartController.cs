@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using AnayaCore.Models;
 using AnayaCore.Services;
+using AnayaCore.Models.Main;
+using AnayaCore.Models.Helper;
 
 namespace AnayaCore.Controllers
 {
@@ -209,38 +210,5 @@ namespace AnayaCore.Controllers
                 return BadRequest(new { message = "Error retrieving carts", error = ex.Message });
             }
         }
-    }
-
-    /// <summary>
-    /// Request model for adding product to cart
-    /// </summary>
-    public class AddToCartRequest
-    {
-        public Product Product { get; set; } = new Product();
-        public int Quantity { get; set; } = 1;
-    }
-
-    /// <summary>
-    /// Request model for updating product quantity
-    /// </summary>
-    public class QuantityUpdateRequest
-    {
-        public int Quantity { get; set; }
-    }
-
-    /// <summary>
-    /// Response model for cart total
-    /// </summary>
-    public class CartTotalResponse
-    {
-        public decimal Total { get; set; }
-    }
-
-    /// <summary>
-    /// Response model for cart items count
-    /// </summary>
-    public class CartCountResponse
-    {
-        public int ItemsCount { get; set; }
     }
 }

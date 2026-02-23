@@ -1,4 +1,4 @@
-using AnayaCore.Models;
+using AnayaCore.Models.Main;
 
 namespace AnayaCore.Repositories
 {
